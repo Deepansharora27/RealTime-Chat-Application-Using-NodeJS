@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>D's Chat Application - Rooms</title>
+    <link rel="stylesheet" href="/css/roomsStyles.css" />
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <!-- Bringing in the socket.io frontend client library: -->
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="titlePanel">
+        <h1>D's Chat App | Select or Create a Chatroom</h1>
+      </div>
+      <div class="controls">
+        <div class="userPicHolder">
+          <img src="<%= user.profilePic %>" alt="<%= user.fullName %>" />
+        </div>
+        <p class="userName"><%= user.fullName %></p>
+        <a href="/logout" id="logOutBtn">Logout</a>
+      </div>
+      <div class="controls">
+        <input
+          id="createRoomField"
+          type="text"
+          name="roomName"
+          placeholder="Create a new Chatroom"
+        />
+        <a href="#" id="createBtn">Create</a>
+      </div>
+      <div class="roomsListDiv">
+        <ul class="roomsList" id="roomsListUL">
+          <!-- Loop list items here -->
+          <!-- <a href="chatroom.htm"><li>Sample Room Item 1</li></a>
+          <a href="chatroom.htm"><li>Sample Room Item 2</li></a> -->
+          <!-- Loop ends -->
+        </ul>
+      </div>
+    </div>
+    <script>
+      const socket = io("http://localhost:3000/roomsList");
+      let newRoomInput = document.querySelector("#createRoomField");
+
+      //Just a Test Function to check whether our Socket on frontend is connected to server or not :
+      // socket.on("connect", () => {
+      //   console.log("Connected to Server");
+      // });
+      let renderChatRooms = (chatrooms) => {
+        let roomsListUnor = document.getElementById("roomsListUL");
+        let listStr = "";
+        for (let i of chatrooms) {
+          listStr += `<a href="/chat/${i.roomID}"><li>${i.room}</li></a>`;
+        }
+        roomsListUnor.innerHTML += listStr;
+      };
+      //Get a List Of ChatRooms :
+      socket.emit("getChatRooms");
+
+      //Event Listener for chatRoomsList :
+      socket.on("chatRoomsList", (chatrooms) => {
+        renderChatRooms(JSON.parse(chatrooms));
+      });
+
+      //I need to be aware of the whole workflow is going :
+      //To make sure , that it is not null :
+      // if (el) {
+      //   el.addEventListener("click", () => {
+      //     if (newRoomInput.val() !== "") {
+      //       socket.emit("createNewRoom", newRoomInput.val());
+      //       newRoomInput.val("");
+      //     }
+      //   });
+      // } else {
+      //   console.log("You are accessing a NULL Element Of the DOM");
+      // }
+
+      //This Function is not working at all :
+      $("#createBtn").on("click", () => {
+        console.log("You have clicked me");
+        if (newRoomInput.value !== "") {
+          socket.emit("createNewRoom", newRoomInput.value);
+          newRoomInput.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>

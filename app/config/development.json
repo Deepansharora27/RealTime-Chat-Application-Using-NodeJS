@@ -1,0 +1,17 @@
+{
+  "host": "http://localhost:3000",
+  "dbURI": "mongodb+srv://deepanshu1397:Anju1977@cluster0.mk0ou.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "sessionSecret": "dogscanfly",
+  "fb": {
+    "clientID": "3417694501659554",
+    "clientSecret": "e9b2089b3c04886396983be6d01cbb7f",
+    "callbackURL": "//localhost:3000/auth/facebook/callback",
+    "profileFields": ["id", "displayName", "photos"]
+  },
+  "twitter": {
+    "consumerKey": "STMotiepPg4BiFtaBaCpdTChJ",
+    "consumerSecret": "bnUvPw3ij3boOJeucd1bzeFjCsX0sWktMXy2DrQepcBlKxRkvJ",
+    "callbackURL": "//localhost:3000/auth/twitter/callback",
+    "profileFields": ["id", "displayName", "photos"]
+  }
+}

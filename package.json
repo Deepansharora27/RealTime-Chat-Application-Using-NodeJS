@@ -1,0 +1,23 @@
+{
+  "name": "chatroom-application",
+  "version": "1.0.0",
+  "description": "This is a ChatRoom Application Developed Usign NodeJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Deepanshu Arora",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "1.4.5",
+    "ejs": "3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "5.10.1",
+    "passport": "0.4.1",
+    "passport-facebook": "3.0.0",
+    "passport-twitter": "1.0.4",
+    "passport.socketio": "^3.7.0",
+    "socket.io": "3.0.1"
+  }
+}
